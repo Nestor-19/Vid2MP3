@@ -23,7 +23,21 @@ def login():
         return "Missing Credentials", 401
     
     # Verify username and password in DB
+    cur = mysql.connection.cursor()
+    res = cur.execute(
+        "SELECT email, password FROM user WHERE email=%s", (auth.username)
+    )
     
-
-
-
+    if res > 0:
+        user_row = cur.fetchone()
+        email = user_row[0]
+        password = user_row[1]
+        
+        # Validate user
+        if auth.username != email or auth.password != password:
+            return "Invalid Credentials!", 401
+        else:
+            return createJWT(auth.username, os.environ.get("JWT_SECRET"), True)
+    else:
+        # User does not exist in DB
+        return "Invalid Credentials!", 401
