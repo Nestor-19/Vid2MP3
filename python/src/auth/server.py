@@ -41,3 +41,16 @@ def login():
     else:
         # User does not exist in DB
         return "Invalid Credentials!", 401
+
+def createJWT(username, secret, is_admin):
+    return jwt.encode(
+        {
+            "username": username,
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
+            "iat": datetime.datetime.utcnow(),
+            "admin": is_admin
+        },
+        secret,
+        algorithm="HS256"
+    )
+    
