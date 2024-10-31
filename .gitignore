@@ -8,3 +8,6 @@ __pycache__/
 
 # OS-specific files
 .DS_Store
+
+# Kubernetes secrets file
+secret.yaml
