@@ -53,3 +53,12 @@ def upload():
         return "Success!", 200
     else:
         return "Not Authorized!", 401
+
+# Download route (To download the mp3)
+@server.route("/download", methods=["GET"])
+def download():
+    pass
+
+if __name__ == "__main__":
+    # Run server and listen on port 8080
+    server.run(host="0.0.0.0", port=8080)
